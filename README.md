@@ -140,6 +140,9 @@ Desde Claude, invoca el tool `odoo_ping` para confirmar conectividad y ver la ve
 | `odoo_project_list_tasks` | Lista tareas, con filtros por proyecto, responsable y etapa. |
 | `odoo_project_create_task` | Crea una tarea dentro de un proyecto. |
 | `odoo_project_update_task` | Actualiza una tarea (ej. cambiar de etapa/kanban). |
+| `odoo_project_post_message` | Publica un mensaje o nota en el chatter (mail.thread) de una tarea. |
+| `odoo_message_delete` | Elimina un mensaje del chatter por ID (para corregir publicaciones). |
+| `odoo_timesheet_create` | Registra una línea de hoja de horas (account.analytic.line) sobre una tarea. |
 
 ### Inventario y Compras
 | Tool | Descripción |
