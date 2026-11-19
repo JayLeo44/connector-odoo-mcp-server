@@ -1,7 +1,9 @@
 """Punto de entrada del servidor MCP odoo-mcp-server.
 
 Arranca un servidor MCP (stdio) que expone tools para interactuar con
-Odoo (CRM/Ventas, Proyectos/Tareas, Inventario/Compras) vía XML-RPC.
+Odoo vía XML-RPC. Las tools están agrupadas por módulo de Odoo en
+``tools/`` (CRM, Ventas, Inventario, Compras, Proyectos/Tareas, Hojas de
+horas, Contactos y chatter) y se registran en ``main()``.
 """
 
 from __future__ import annotations
@@ -12,7 +14,16 @@ from mcp.server.fastmcp import FastMCP
 
 from .config import ConfigError, OdooConfig
 from .odoo_client import OdooClient
-from .tools import crm_sales, inventory_purchase, projects
+from .tools import (
+    crm,
+    inventory,
+    mail,
+    partners,
+    projects,
+    purchase,
+    sales,
+    timesheets,
+)
 
 mcp = FastMCP("odoo-mcp-server")
 
@@ -45,9 +56,8 @@ def main() -> None:
     global _client
     _client = client
 
-    crm_sales.register(mcp, client)
-    projects.register(mcp, client)
-    inventory_purchase.register(mcp, client)
+    for module in (crm, sales, inventory, purchase, projects, timesheets, partners, mail):
+        module.register(mcp, client)
 
     mcp.run()
 
